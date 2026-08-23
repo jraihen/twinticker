@@ -2,3 +2,6 @@
 *.log
 node_modules/
 dist/*.exe
+dist/*.zip
+dist/TwinTicker-Desktop-win32-x64/
+dist/TwinTicker-win32-x64/

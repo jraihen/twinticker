@@ -4,14 +4,19 @@
 
 ## Alpha 0.1
 
-첫 알파는 두 자산을 골라 1일·1주·1개월·1년의 정규화 수익률을 비교하는 정적 웹 앱입니다.
+첫 알파는 두 자산을 골라 1일·1주·1개월·1년의 정규화 수익률을 비교하는 Windows 데스크톱 앱입니다.
 
 - 종목/ETF 6개 예시를 즉시 교체해 비교
+- 토스증권 Open API의 현재가와 캔들 데이터를 바탕으로 실제 시세 비교
 - 기간별 수익률, 연환산 변동성, 기간 최고점, 성과 격차
-- 선택한 자산과 기간을 브라우저에 저장
+- 선택한 자산과 기간을 앱의 로컬 저장소에 저장
 - 모바일 반응형 레이아웃
 
-알파의 시세는 체험용으로 생성한 목업 데이터입니다. 투자 조언이나 실시간 가격 제공을 목적으로 하지 않습니다.
+토스증권 Open API는 OAuth 2.0 Client Credentials와 허용 IP 등록이 필요합니다. 앱을 열어 오른쪽 위 **설정(⚙)** 에서 토스증권 WTS의 **설정 > Open API**에서 발급한 Client ID와 Client Secret을 입력하세요.
+
+입력값은 Windows DPAPI로 암호화되어 앱별 데이터 폴더에 저장됩니다. 현재 Windows 사용자만 복호화할 수 있고, 앱 화면과 Git 저장소에는 시크릿을 전달하거나 기록하지 않습니다.
+
+시세 자격 증명은 앱의 메인 프로세스만 읽습니다. GitHub Pages는 데스크톱 보안 저장소와 API 서버가 없으므로 실제 시세를 표시하지 못합니다. 투자 조언을 제공하지 않습니다.
 
 ### Local verification
 
@@ -20,16 +25,17 @@ Node.js 20 이상에서 아래 명령으로 핵심 계산과 문법을 확인할
 ```bash
 npm run check
 npm test
+npm start
 ```
 
-`index.html`은 별도의 번들 과정 없이 정적 서버에서 바로 실행됩니다. `main` 브랜치 푸시 시 GitHub Actions가 GitHub Pages로 배포합니다(리포지토리 설정에서 Pages source를 **GitHub Actions**로 한 번 선택해야 합니다).
+Windows 배포용 앱 폴더는 `npm run build:app`으로 만들 수 있습니다.
 
 ### Windows 실행 파일
 
-릴리즈의 `TwinTicker-Alpha-*.exe`는 설치 없이 실행하는 휴대용 패키지입니다. 앱과 로컬 서버를 포함하므로 Node.js를 별도로 설치할 필요는 없지만, 실행 중에는 콘솔 창을 닫지 않아야 합니다. Windows에서 아래 명령으로 같은 실행 파일을 다시 만들 수 있습니다.
+`npm run build:app` 결과의 `TwinTicker.exe`는 브라우저나 콘솔 창을 열지 않고 자체 창으로 실행됩니다. 앱 내부의 로컬 시세 서버는 창과 함께 종료됩니다.
 
 ```powershell
-npm run build:exe
+npm run build:app
 ```
 
 알파의 특이사항과 배포 기록은 [운영 기록](docs/OPERATIONS.md), 버전별 변경은 [CHANGELOG.md](CHANGELOG.md)에서 관리합니다.

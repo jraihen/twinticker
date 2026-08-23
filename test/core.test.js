@@ -1,12 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { comparison, makeSeries, percentChange, volatility } from '../core.js';
+import { alignSeries, comparison, percentChange, volatility } from '../core.js';
 
-test('series generation is deterministic and normalized to 100', () => {
-  const first = makeSeries('SPY', '1M');
-  assert.deepEqual(first, makeSeries('SPY', '1M'));
-  assert.equal(first.length, 42);
-  assert.ok(first[0] > 95 && first[0] < 105);
+test('alignSeries keeps only common candle timestamps', () => {
+  const aligned = alignSeries(
+    [{ timestamp: '2026-08-20T00:00:00Z', close: 100 }, { timestamp: '2026-08-21T00:00:00Z', close: 110 }],
+    [{ timestamp: '2026-08-19T00:00:00Z', close: 50 }, { timestamp: '2026-08-21T00:00:00Z', close: 55 }]
+  );
+  assert.equal(aligned.pointsA.length, 1);
+  assert.equal(aligned.pointsA[0].close, 110);
+  assert.equal(aligned.pointsB[0].close, 55);
 });
 
 test('percentage change and volatility handle common cases', () => {
@@ -16,8 +19,11 @@ test('percentage change and volatility handle common cases', () => {
   assert.ok(volatility([100, 101, 99, 104]) > 0);
 });
 
-test('comparison returns aligned values and its spread', () => {
-  const result = comparison({ symbol: 'SPY' }, { symbol: 'QQQ' }, '1W');
-  assert.equal(result.seriesA.length, result.seriesB.length);
+test('comparison normalizes aligned closing prices and returns the spread', () => {
+  const a = [{ timestamp: '2026-08-20T00:00:00Z', close: 100 }, { timestamp: '2026-08-21T00:00:00Z', close: 110 }];
+  const b = [{ timestamp: '2026-08-20T00:00:00Z', close: 50 }, { timestamp: '2026-08-21T00:00:00Z', close: 55 }];
+  const result = comparison(a, b);
+  assert.deepEqual(result.seriesA, [100, 110]);
+  assert.deepEqual(result.seriesB, [100, 110]);
   assert.equal(result.spread, result.returnA - result.returnB);
 });

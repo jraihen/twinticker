@@ -8,16 +8,17 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="topbar"><a class="brand" href="./"><span>TT</span>TwinTicker <em>alpha</em></a><div class="market-status"><i></i>미국 시장 <b>정규장 마감</b><small>· 15분 지연 데이터</small></div><button class="icon-button" aria-label="설정">⚙</button></header>
+    <header class="topbar"><a class="brand" href="./"><span>TT</span>TwinTicker <em>alpha</em></a><div id="market-status" class="market-status"><i></i>미국 시장 <b>시세 연결 중</b></div><button id="settings-open" class="icon-button" aria-label="토스증권 API 설정">⚙</button></header>
     <main>
       <section class="hero"><p class="eyebrow">COMPARE WITH CLARITY</p><h1>두 자산, <span>하나의 기준</span></h1><p>같은 시간축 위에서 성과의 차이를 빠르게 확인하세요.</p></section>
-      <section class="compare-panel" aria-label="자산 비교"><div id="asset-pair" class="asset-pair"></div><div class="range-row"><div id="range-tabs" class="range-tabs" aria-label="비교 기간"></div><span class="data-note">마지막 업데이트 <b>오늘 16:12 KST</b></span></div></section>
+      <section class="compare-panel" aria-label="자산 비교"><div id="asset-pair" class="asset-pair"></div><div class="range-row"><div id="range-tabs" class="range-tabs" aria-label="비교 기간"></div><span id="data-note" class="data-note" aria-live="polite"></span></div></section>
       <section class="chart-panel"><div class="chart-header"><div><p class="panel-label">NORMALIZED RETURN</p><h2>정규화 수익률 <small>시작값 100</small></h2></div><div id="chart-summary" class="chart-summary"></div></div><div id="chart" class="chart"></div></section>
       <section id="insight" class="insight"></section>
       <section id="metrics" class="metrics" aria-label="비교 지표"></section>
-      <p class="disclaimer">TwinTicker는 비교와 관찰을 위한 도구이며 투자 조언을 제공하지 않습니다. 알파 버전의 시세는 체험용 목업 데이터입니다.</p>
+      <p class="disclaimer">TwinTicker는 비교와 관찰을 위한 도구이며 투자 조언을 제공하지 않습니다. 토스증권 Open API 시세를 표시하며, 통신 지연·오류 가능성이 있습니다.</p>
     </main>
     <dialog id="picker"><div class="dialog-head"><div><p class="panel-label">ASSET SELECTOR</p><h2 id="picker-title">자산 선택</h2></div><button id="picker-close" class="icon-button" aria-label="닫기">×</button></div><div id="asset-options" class="asset-options"></div><p class="dialog-note">알파 버전에서는 미국 주식과 ETF 예시만 제공합니다.</p></dialog>
+    <dialog id="settings"><div class="dialog-head"><div><p class="panel-label">TOSS SECURITIES OPEN API</p><h2>시세 API 설정</h2></div><button id="settings-close" class="icon-button" aria-label="닫기">×</button></div><form id="settings-form"><p id="settings-status" class="dialog-note"></p><label class="settings-field">Client ID<input id="client-id" name="clientId" autocomplete="off" required /></label><label class="settings-field">Client Secret<input id="client-secret" name="clientSecret" type="password" autocomplete="new-password" required /></label><p class="dialog-note">입력값은 Windows DPAPI로 암호화되어 이 PC의 현재 Windows 사용자만 복호화할 수 있습니다. 앱 화면과 서버에는 시크릿이 다시 표시되지 않습니다.</p><div class="settings-actions"><button id="settings-clear" type="button" class="text-button">저장된 키 삭제</button><button type="submit" class="save-button">안전하게 저장</button></div></form></dialog>
     <script type="module" src="app.js"></script>
   </body>
 </html>

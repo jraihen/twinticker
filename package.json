@@ -1,14 +1,17 @@
 {
   "name": "twinticker",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "private": true,
   "type": "module",
+  "main": "electron-main.cjs",
   "scripts": {
+    "start": "electron .",
     "test": "node --test",
-    "check": "node --check app.js && node --check core.js",
-    "build:exe": "node scripts/build-exe.mjs"
+    "check": "node --check app.js && node --check core.js && node --check desktop.cjs && node --check electron-main.cjs && node --check preload.cjs",
+    "build:app": "node scripts/build-electron.mjs"
   },
   "devDependencies": {
+    "electron": "^43.4.1",
     "postject": "1.0.0-alpha.6"
   }
 }
