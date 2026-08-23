@@ -24,6 +24,16 @@ npm test
 
 `index.html`은 별도의 번들 과정 없이 정적 서버에서 바로 실행됩니다. `main` 브랜치 푸시 시 GitHub Actions가 GitHub Pages로 배포합니다(리포지토리 설정에서 Pages source를 **GitHub Actions**로 한 번 선택해야 합니다).
 
+### Windows 실행 파일
+
+릴리즈의 `TwinTicker-Alpha-*.exe`는 설치 없이 실행하는 휴대용 패키지입니다. 앱과 로컬 서버를 포함하므로 Node.js를 별도로 설치할 필요는 없지만, 실행 중에는 콘솔 창을 닫지 않아야 합니다. Windows에서 아래 명령으로 같은 실행 파일을 다시 만들 수 있습니다.
+
+```powershell
+npm run build:exe
+```
+
+알파의 특이사항과 배포 기록은 [운영 기록](docs/OPERATIONS.md), 버전별 변경은 [CHANGELOG.md](CHANGELOG.md)에서 관리합니다.
+
 ## 초기 방향
 
 - 두 종목/자산의 가격, 수익률, 변동성을 한 화면에서 비교

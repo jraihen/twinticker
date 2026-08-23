@@ -1,10 +1,14 @@
 {
   "name": "twinticker",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "private": true,
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "check": "node --check app.js && node --check core.js"
+    "check": "node --check app.js && node --check core.js",
+    "build:exe": "node scripts/build-exe.mjs"
+  },
+  "devDependencies": {
+    "postject": "1.0.0-alpha.6"
   }
 }
