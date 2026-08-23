@@ -1,0 +1,10 @@
+{
+  "name": "twinticker",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check app.js && node --check core.js"
+  }
+}
